@@ -1,6 +1,4 @@
-import { useState } from "react";
-import { Textarea, Select, Button, CopyButton, Stack, Text } from "@mantine/core";
-
+import { useState } from "react";import { Textarea, Select, Button, CopyButton, Stack, Text } from "@mantine/core";
 const DiscordTextFormatter = () => {
   const [inputText, setInputText] = useState("");
   const [selectedFormat, setSelectedFormat] = useState("diff-red");
@@ -8,17 +6,18 @@ const DiscordTextFormatter = () => {
   const formatText = () => {
     switch (selectedFormat) {
       case "diff-red":
-        return `\`\`\`diff\n- ${inputText}\n\`\`\``; // ✅ Red
+        return `\`\`\`diff\n- ${inputText}\n\`\`\``; // Red
       case "diff-green":
-        return `\`\`\`diff\n+ ${inputText}\n\`\`\``; // ✅ Green
-      case "fix-yellow":
-        return `\`\`\`fix\n${inputText}\n\`\`\``; // ✅ Yellow
-      case "ini-blue": // 🔵 FIXED BLUE FORMAT
-        return `\`\`\`ini\n[${inputText}]\n\`\`\``; // ✅ Blue (INI format)
+        return `\`\`\`diff\n+ ${inputText}\n\`\`\``; // Green
+      case "arm-yellow":
+        return `\`\`\`arm\n${inputText}\n\`\`\``; // Yellow (ARM)
+      case "yaml-blue":
+        return `\`\`\`yaml\n${inputText}\n\`\`\``; // Blue
       default:
         return inputText;
     }
   };
+  
 
   return (
     <div style={{ padding: "20px", maxWidth: "500px", margin: "auto" }}>
@@ -35,11 +34,12 @@ const DiscordTextFormatter = () => {
           data={[
             { value: "diff-red", label: "🔴 Red (-)" },
             { value: "diff-green", label: "🟢 Green (+)" },
-            { value: "fix-yellow", label: "🟡 Yellow (fix)" },
-            { value: "ini-blue", label: "🔵 Blue (ini)" }, // ✅ Updated Blue Format
+            { value: "arm-yellow", label: "🟡 Yellow (ARM)" },
+            { value: "yaml-blue", label: "🔵 Blue (yaml)" },
           ]}
           value={selectedFormat}
           onChange={setSelectedFormat}
+          style={{ marginTop: "10px" }}
         />
 
         <CopyButton value={formatText()}>
@@ -50,7 +50,6 @@ const DiscordTextFormatter = () => {
           )}
         </CopyButton>
 
-        {/* Preview Section */}
         <Text size="sm" weight={500}>🔍 Preview:</Text>
         <pre style={{ padding: "10px", background: "#1e1e1e", color: "white", borderRadius: "5px" }}>
           {formatText()}
